@@ -1,0 +1,230 @@
+[
+  {
+    "slug": "kip-i-avtomatika",
+    "name": "КИП и датчики",
+    "summary": "Измерение давления, уровня, расхода и температуры: датчики, уровнемеры, расходомеры, реле протока.",
+    "groups": [
+      {
+        "slug": "rashodomery",
+        "name": "Расходомеры"
+      },
+      {
+        "slug": "datchiki-davleniya",
+        "name": "Датчики давления"
+      },
+      {
+        "slug": "urovnemery",
+        "name": "Уровнемеры и датчики уровня"
+      },
+      {
+        "slug": "datchiki-temperatury",
+        "name": "Датчики температуры"
+      },
+      {
+        "slug": "analiz-i-sostav",
+        "name": "Анализ среды"
+      },
+      {
+        "slug": "datchiki-polozheniya",
+        "name": "Датчики положения и присутствия"
+      },
+      {
+        "slug": "tehnicheskoe-zrenie",
+        "name": "Техническое зрение и идентификация"
+      },
+      {
+        "slug": "bezopasnost",
+        "name": "Безопасность"
+      }
+    ]
+  },
+  {
+    "slug": "privodnaya-tehnika",
+    "name": "Приводная техника",
+    "summary": "Управление двигателями: частотные преобразователи, устройства плавного пуска, приводы постоянного тока, сервотехника.",
+    "groups": [
+      {
+        "slug": "chastotnye-preobrazovateli",
+        "name": "Частотные преобразователи"
+      },
+      {
+        "slug": "ustroystva-plavnogo-puska",
+        "name": "Устройства плавного пуска"
+      },
+      {
+        "slug": "privody-postoyannogo-toka",
+        "name": "Приводы постоянного тока"
+      },
+      {
+        "slug": "servotehnika",
+        "name": "Серводвигатели и сервоусилители"
+      },
+      {
+        "slug": "motor-reduktory",
+        "name": "Мотор-редукторы и двигатели"
+      }
+    ]
+  },
+  {
+    "slug": "upravlenie-i-vizualizatsiya",
+    "name": "Управление и визуализация",
+    "summary": "Контроллеры, модули ввода-вывода, панели оператора, промышленные компьютеры и шлюзы связи.",
+    "groups": [
+      {
+        "slug": "kontrollery",
+        "name": "Контроллеры и ПЛК"
+      },
+      {
+        "slug": "moduli-vvoda-vyvoda",
+        "name": "Модули ввода-вывода"
+      },
+      {
+        "slug": "paneli-operatora",
+        "name": "Панели оператора и HMI"
+      },
+      {
+        "slug": "promyshlennye-kompyutery",
+        "name": "Промышленные компьютеры"
+      },
+      {
+        "slug": "svyaz-i-shlyuzy",
+        "name": "Связь и шлюзы"
+      },
+      {
+        "slug": "avtomatika-ventilyatsii",
+        "name": "Автоматика вентиляции"
+      },
+      {
+        "slug": "regulyatory",
+        "name": "Регуляторы и самописцы"
+      }
+    ]
+  },
+  {
+    "slug": "elektrooborudovanie",
+    "name": "Электрооборудование",
+    "summary": "Коммутация и защита: автоматические выключатели, контакторы, реле, блоки питания, ИБП, шкафы.",
+    "groups": [
+      {
+        "slug": "avtomaticheskie-vyklyuchateli",
+        "name": "Автоматические выключатели"
+      },
+      {
+        "slug": "kontaktory-i-puskateli",
+        "name": "Контакторы и пускатели"
+      },
+      {
+        "slug": "rele",
+        "name": "Реле"
+      },
+      {
+        "slug": "bloki-pitaniya",
+        "name": "Блоки питания"
+      },
+      {
+        "slug": "ibp",
+        "name": "Источники бесперебойного питания"
+      },
+      {
+        "slug": "shkafy-i-klimat",
+        "name": "Шкафы и климатика"
+      },
+      {
+        "slug": "kachestvo-seti",
+        "name": "Качество сети и защита"
+      },
+      {
+        "slug": "rubilniki-i-avr",
+        "name": "Рубильники и АВР"
+      },
+      {
+        "slug": "releynaya-zaschita",
+        "name": "Релейная защита"
+      },
+      {
+        "slug": "knopki-i-posty",
+        "name": "Кнопки и посты управления"
+      },
+      {
+        "slug": "osveschenie",
+        "name": "Освещение"
+      }
+    ]
+  },
+  {
+    "slug": "armatura-i-privody",
+    "name": "Арматура и приводы",
+    "summary": "Трубопроводная арматура и электроприводы к ней: краны, клапаны, задвижки, регулирующие узлы.",
+    "groups": [
+      {
+        "slug": "krany-i-klapany",
+        "name": "Краны и клапаны"
+      },
+      {
+        "slug": "privody-armatury",
+        "name": "Приводы арматуры"
+      }
+    ]
+  },
+  {
+    "slug": "nasosy",
+    "name": "Насосное оборудование",
+    "summary": "Циркуляционные, дозировочные и многоступенчатые насосы для отопления, ГВС и водоподготовки.",
+    "groups": [
+      {
+        "slug": "tsirkulyatsionnye-nasosy",
+        "name": "Циркуляционные насосы"
+      },
+      {
+        "slug": "dozirovochnye-nasosy",
+        "name": "Дозировочные насосы"
+      },
+      {
+        "slug": "nasosy-prochie",
+        "name": "Насосы прочие"
+      }
+    ]
+  },
+  {
+    "slug": "pnevmatika",
+    "name": "Пневматика",
+    "summary": "Пневмоострова, распределители, цилиндры и подготовка воздуха Festo, SMC, Camozzi.",
+    "groups": [
+      {
+        "slug": "pnevmoostrova",
+        "name": "Пневмоострова и распределители"
+      },
+      {
+        "slug": "pnevmoprivody",
+        "name": "Цилиндры и приводы"
+      }
+    ]
+  },
+  {
+    "slug": "prochee-oborudovanie",
+    "name": "Прочее оборудование",
+    "summary": "Позиции, которые не укладываются в основные разделы: сетевое и торговое оборудование, техника, инструмент.",
+    "groups": [
+      {
+        "slug": "setevoe-oborudovanie",
+        "name": "Сетевое оборудование"
+      },
+      {
+        "slug": "kabel-i-montazh",
+        "name": "Кабель и монтаж"
+      },
+      {
+        "slug": "instrument",
+        "name": "Инструмент и приборы"
+      },
+      {
+        "slug": "slabotochnye-sistemy",
+        "name": "Слаботочные системы"
+      },
+      {
+        "slug": "raznoe",
+        "name": "Разное"
+      }
+    ]
+  }
+]

@@ -1,0 +1,202 @@
+@import "tailwindcss";
+
+/* ============================================================
+   Пром-Материалы — дизайн-система
+   Полное описание: docs/design-system.md
+   Белая страница, серо-голубой акцент, границы вместо теней.
+   ============================================================ */
+
+@theme {
+  --color-page: #ffffff;
+  --color-surface: #f5f8fa;
+  --color-line: #e1e7ed;
+  --color-ink: #16202b;
+  /* Второй и третий уровни серого подняты по контрасту: было 5,7:1 и 4,8:1
+     на белом (а на surface третий проваливался до 4,4:1 — ниже AA).
+     Стало 8,0:1 и 6,3:1 — читается как основной текст, а не как подпись. */
+  --color-ink-2: #45525f;
+  --color-ink-3: #556170;
+  --color-accent: #3e6c93;
+  --color-accent-hover: #325876;
+  --color-accent-soft: #e8f0f6;
+  --color-ok: #2f7a4d;
+  --color-warn: #a9690b;
+  --color-danger: #b3352c;
+
+  --font-sans: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+
+  /* Одна кривая на весь сайт: движение должно быть незаметным. */
+  --ease-soft: cubic-bezier(0.22, 0.61, 0.36, 1);
+
+  --animate-rise: rise 0.32s var(--ease-soft) both;
+  --animate-drop: drop 0.16s var(--ease-soft) both;
+  /* Панель выезжает справа — оттуда же, где стоит открывающая её кнопка. */
+  --animate-slide-in: slide-in 0.22s var(--ease-soft) both;
+  --animate-shimmer: shimmer 1.4s linear infinite;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes slide-in {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: none;
+  }
+}
+
+@keyframes drop {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes shimmer {
+  from {
+    background-position: -120% 0;
+  }
+  to {
+    background-position: 220% 0;
+  }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background: var(--color-page);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Цифры в столбцах не должны плясать: цены, токи, количества. */
+  table,
+  input[type="number"],
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  ::selection {
+    background: var(--color-accent-soft);
+  }
+}
+
+@layer components {
+  /* Заголовки собраны в одном месте, а не размазаны по страницам:
+     крупный кегль, плотный трекинг, тихий цвет — воздух вокруг важнее
+     размера. Каждый следующий уровень заметно тише предыдущего. */
+  /* Ступени: 12 / 14 / 16 / 20 / 28 / 46. Промежуточные 13, 15, 18, 30
+     убраны — соседние ступени глаз не различал, и шкала не читалась. */
+  .h1 {
+    font-size: 1.75rem;
+    line-height: 2.125rem;
+    font-weight: 600;
+    letter-spacing: -0.028em;
+    text-wrap: balance;
+  }
+
+  .h2 {
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+    font-weight: 600;
+    letter-spacing: -0.022em;
+  }
+
+  .lead {
+    max-width: 60ch;
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--color-ink-2);
+  }
+
+  @media (min-width: 1024px) {
+    .h1 {
+      font-size: 2.875rem;
+      line-height: 3.25rem;
+      letter-spacing: -0.032em;
+    }
+
+    .h2 {
+      font-size: 1.75rem;
+      line-height: 2.25rem;
+    }
+
+    .lead {
+      font-size: 1.25rem;
+      line-height: 1.65;
+    }
+  }
+
+  /* Появление секции при прокрутке. Оба класса вешает компонент Reveal
+     и только блокам ниже экрана: без JS контент виден всегда. */
+  .reveal {
+    transition:
+      opacity 0.4s var(--ease-soft),
+      transform 0.4s var(--ease-soft);
+  }
+
+  .reveal-hidden {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  .skeleton {
+    background:
+      linear-gradient(90deg, var(--color-surface) 25%, #eef3f7 37%, var(--color-surface) 63%) 0 0 /
+      220% 100%;
+    animation: var(--animate-shimmer);
+  }
+}
+
+/* Пользователь попросил меньше движения — отдаём статику, а не «поменьше». */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+
+  .reveal-hidden {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+}
