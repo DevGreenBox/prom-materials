@@ -298,9 +298,13 @@ export default function HomePage() {
       </Container>
 
       {/* Финальный блок — форма вопроса. Сценарий тот же (снабженец
-          присылает список), но заголовок спрашивает, а не требует. */}
+          присылает список), но заголовок спрашивает, а не требует.
+
+          Нижнего отступа нет: форма и подвал стоят на одном сером поле
+          и читаются одним блоком, а расстояние между ними задаёт
+          собственный верхний отступ подвала. */}
       <section className="border-t border-line bg-surface">
-        <Container className="py-12 lg:py-16">
+        <Container className="pt-12 lg:pt-16">
           <Reveal>
             <div className="lg:grid lg:grid-cols-12 lg:gap-x-5">
               <div className="lg:col-span-5">
