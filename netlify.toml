@@ -1,0 +1,23 @@
+# Сборка сайта на Netlify.
+#
+# `@netlify/plugin-nextjs` обязателен: у Next 16 маршруты (в том числе
+# `/api/cdek`), оптимизация картинок и заголовки работают в рантайме —
+# статикой из `.next` они не отдаются. Плагин Netlify ставит сам,
+# если он объявлен здесь.
+#
+# Корень репозитория совпадает с корнем проекта, поэтому `base` не нужен.
+
+[build]
+  command = "pnpm build"
+  publish = ".next"
+
+[build.environment]
+  NODE_VERSION = "22"
+  NEXT_TELEMETRY_DISABLED = "1"
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+
+# Ключи СДЭК задаются в настройках проекта на Netlify
+# (Site configuration → Environment variables), а не здесь:
+# в репозитории им не место.
