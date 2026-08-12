@@ -81,13 +81,23 @@
     scroll-behavior: smooth;
   }
 
+  /*
+    Фон страницы — тон подвала, а белый лежит на самом контенте (`main`).
+    Так любой зазор снаружи контента — между последним блоком и подвалом,
+    под коротким экраном, при оттяжке скролла — совпадает с подвалом,
+    а не светится белой полосой.
+  */
   body {
-    background: var(--color-page);
+    background: var(--color-surface);
     color: var(--color-ink);
     font-family: var(--font-sans);
     font-size: 16px;
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
+  }
+
+  main {
+    background: var(--color-page);
   }
 
   /* Цифры в столбцах не должны плясать: цены, токи, количества. */
