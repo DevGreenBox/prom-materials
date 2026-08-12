@@ -17,7 +17,7 @@ export default function OfferPage() {
 
       <h1 className="h1">Условия продажи</h1>
 
-      <div className="mt-6 max-w-[68ch] space-y-4 text-base text-ink-2">
+      <div className="mt-3 max-w-[68ch] space-y-4 text-base text-ink-2">
         <p className="rounded-md bg-surface px-4 py-3">
           Черновик. Итоговые условия и договор поставки готовит {site.legalName}
           .

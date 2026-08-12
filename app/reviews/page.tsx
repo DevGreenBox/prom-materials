@@ -18,7 +18,7 @@ export default function ReviewsPage() {
 
       <h1 className="h1">Отзывы покупателей</h1>
 
-      <div className="mt-6 border-y border-line py-6">
+      <div className="mt-8 border-y border-line py-6">
         <RatingSummary large />
       </div>
 

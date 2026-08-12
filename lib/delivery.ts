@@ -1,27 +1,60 @@
 /**
- * Расчёт стоимости доставки.
+ * Способы доставки.
  *
- * TODO(client): тариф условный — реальные ставки и перевозчик не согласованы.
- * Массы позиций в объявлениях нет, поэтому вес в расчёте не участвует:
- * ставка зависит только от зоны. Когда появится договор с ТК, меняется
- * таблица `zones`, интерфейс расчёта остаётся прежним.
+ * Самовывоз бесплатный, остальное считает СДЭК по выбранному городу
+ * и пункту выдачи (`lib/cdek.ts`). Фиксированных ставок по зонам больше нет:
+ * они не совпадали с тем, что покупатель платит на самом деле.
  */
-export type ZoneId = "pickup" | "city" | "region" | "russia";
+export type DeliveryMode = "pickup" | "pvz" | "courier";
 
-export const zones: {
-  id: ZoneId;
+export const deliveryModes: {
+  id: DeliveryMode;
   name: string;
   note: string;
-  base: number;
-  days: string;
 }[] = [
-  { id: "pickup", name: "Самовывоз", note: "Бурцевская ул., 7А", base: 0, days: "в день заказа" },
-  { id: "city", name: "Москва в пределах МКАД", note: "курьером", base: 700, days: "1 рабочий день" },
-  { id: "region", name: "Московская область", note: "курьером", base: 1100, days: "1–2 рабочих дня" },
-  { id: "russia", name: "Регионы России", note: "до терминала ТК", base: 1500, days: "3–7 рабочих дней" },
+  { id: "pickup", name: "Самовывоз", note: "Бурцевская ул., 7А, в день заказа" },
+  { id: "pvz", name: "СДЭК, в пункт выдачи", note: "по России" },
+  { id: "courier", name: "СДЭК, курьером до двери", note: "по России" },
 ];
 
-export function deliveryCost(zoneId: ZoneId): { cost: number; days: string } {
-  const zone = zones.find((item) => item.id === zoneId) ?? zones[0];
-  return { cost: zone.base, days: zone.days };
+/** Выбор покупателя: живёт в сторе и уезжает в заказ целиком. */
+export type Delivery = {
+  mode: DeliveryMode;
+  cityCode: number | null;
+  cityName: string;
+  pointCode: string | null;
+  pointAddress: string;
+  /** Рассчитанная стоимость. Для самовывоза — ноль. */
+  cost: number;
+  /** Срок словами: «1–2 дня». Пустая строка, пока расчёта нет. */
+  days: string;
+};
+
+export const pickup: Delivery = {
+  mode: "pickup",
+  cityCode: null,
+  cityName: "",
+  pointCode: null,
+  pointAddress: "",
+  cost: 0,
+  days: "в день заказа",
+};
+
+/** Готов ли выбор к оформлению: город и пункт выдачи обязательны для СДЭК. */
+export function deliveryReady(delivery: Delivery): boolean {
+  if (delivery.mode === "pickup") return true;
+  if (!delivery.cityCode) return false;
+  return delivery.mode === "courier" || Boolean(delivery.pointCode);
+}
+
+/** Строка для заказа и накладной: одним предложением, без сокращений. */
+export function deliveryLabel(delivery: Delivery): string {
+  if (delivery.mode === "pickup") return "Самовывоз, Бурцевская ул., 7А";
+
+  const where =
+    delivery.mode === "courier"
+      ? "курьером до двери"
+      : `пункт выдачи: ${delivery.pointAddress}`;
+
+  return `СДЭК: ${delivery.cityName}, ${where}`;
 }

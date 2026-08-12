@@ -6,8 +6,7 @@ import {
   Container,
   SectionTitle,
 } from "@/components/ui";
-import { zones } from "@/lib/delivery";
-import { money } from "@/lib/format";
+import { deliveryModes } from "@/lib/delivery";
 
 export const metadata: Metadata = {
   title: "Доставка",
@@ -24,44 +23,27 @@ export default function DeliveryPage() {
 
       <h1 className="h1">Доставка</h1>
       <p className="mt-3 max-w-[68ch] text-ink-2">
-        Считается по весу заказа и зоне. Итог виден в корзине.
+        Самовывоз со склада или СДЭК по России. Стоимость считает СДЭК
+        по выбранному городу — итог виден в корзине.
       </p>
 
       <section className="mt-10">
-        <SectionTitle>Тарифы</SectionTitle>
-        <div className="overflow-x-auto">
-          <table className="w-full min-w-[560px] text-base">
-            <thead>
-              <tr className="border-b border-line text-left text-ink-2">
-                <th className="py-2 pr-4 font-normal">Направление</th>
-                <th className="py-2 pr-4 font-normal">Срок</th>
-                <th className="py-2 font-normal">Стоимость</th>
-              </tr>
-            </thead>
-            <tbody>
-              {zones.map((zone, index) => (
-                <tr
-                  key={zone.id}
-                  className={index % 2 === 1 ? "bg-surface" : undefined}
-                >
-                  <td className="py-2.5 pr-4">
-                    {zone.name}
-                    <span className="block text-sm text-ink-3">
-                      {zone.note}
-                    </span>
-                  </td>
-                  <td className="py-2.5 pr-4">{zone.days}</td>
-                  <td className="py-2.5 font-mono">
-                    {zone.base === 0 ? "бесплатно" : money(zone.base)}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+        <SectionTitle>Способы</SectionTitle>
+        <dl className="grid gap-5 sm:grid-cols-3">
+          {deliveryModes.map((mode) => (
+            <div key={mode.id} className="rounded-md border border-line p-5">
+              <dt className="text-base font-medium">{mode.name}</dt>
+              <dd className="mt-2 text-xl font-semibold">
+                {mode.id === "pickup" ? "бесплатно" : "по тарифу СДЭК"}
+              </dd>
+              <dd className="mt-1 text-base text-ink-2">{mode.note}</dd>
+            </div>
+          ))}
+        </dl>
         <p className="mt-3 text-sm text-ink-3">
-          Тариф предварительный: окончательные ставки зависят от договора с
-          перевозчиком.
+          Стоимость и срок доставки СДЭК считаются в корзине после выбора
+          города и пункта выдачи — тарифы берутся у перевозчика, а не из
+          таблицы на сайте.
         </p>
       </section>
 
@@ -72,7 +54,7 @@ export default function DeliveryPage() {
             выставленный по центру первой строки. */}
         <ul className="grid max-w-[80ch] gap-x-10 gap-y-3 text-base text-ink-2 sm:grid-cols-2">
           {[
-            "Ставка зависит от направления, а не от веса заказа.",
+            "Стоимость считает СДЭК по городу и пункту выдачи.",
             "Крупногабаритное оборудование отгружается транспортной компанией.",
             "Самовывоз на Бурцевской — в день заказа.",
             "Позиции под заказ отгружаются после поступления.",

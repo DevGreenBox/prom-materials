@@ -10,24 +10,24 @@ import {
   Container,
   Empty,
 } from "@/components/ui";
+import { DeliveryPicker } from "@/components/DeliveryPicker";
 import { getProduct } from "@/lib/catalog";
-import { deliveryCost, zones } from "@/lib/delivery";
+import { deliveryReady } from "@/lib/delivery";
 import { formatPhone, money, plural } from "@/lib/format";
 import { FORMS_ARE_MOCKED } from "@/lib/site";
-import { placeOrder, setZone, useStore, type Customer } from "@/lib/store";
+import { placeOrder, useStore, type Customer } from "@/lib/store";
 
 const field =
   "h-11 w-full rounded-md border border-line bg-page px-3 text-base outline-none transition-colors duration-150 focus:border-accent";
 
 export default function CheckoutPage() {
   const router = useRouter();
-  const { cart, ready, cartCount, cartSum, zone } = useStore();
+  const { cart, ready, cartCount, cartSum, delivery } = useStore();
 
   const [kind, setKind] = useState<Customer["kind"]>("person");
   const [errors, setErrors] = useState<Record<string, string>>({});
 
-  const delivery = deliveryCost(zone);
-  const needsAddress = zone !== "pickup";
+  const needsAddress = delivery.mode === "courier";
 
   function onSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -70,8 +70,7 @@ export default function CheckoutPage() {
         inn: kind === "company" ? value("inn") : undefined,
         address: needsAddress ? value("address") : undefined,
       },
-      zone,
-      deliveryCost: delivery.cost,
+      delivery,
     });
 
     router.push(`/account/orders/${id}`);
@@ -179,39 +178,7 @@ export default function CheckoutPage() {
 
           <fieldset>
             <legend className="mb-3 text-xl font-semibold">Доставка</legend>
-            <div className="space-y-2">
-              {zones.map((item) => {
-                const cost = deliveryCost(item.id);
-                return (
-                  <label
-                    key={item.id}
-                    className={`flex min-h-11 cursor-pointer items-center gap-3 rounded-md border px-4 py-3 transition-colors duration-150 ${
-                      zone === item.id
-                        ? "border-accent bg-accent-soft"
-                        : "border-line hover:border-accent"
-                    }`}
-                  >
-                    <input
-                      type="radio"
-                      name="zone"
-                      value={item.id}
-                      checked={zone === item.id}
-                      onChange={() => setZone(item.id)}
-                      className="size-4 accent-[var(--color-accent)]"
-                    />
-                    <span className="flex-1">
-                      <span className="block text-base">{item.name}</span>
-                      <span className="block text-sm text-ink-2">
-                        {item.note}, {item.days}
-                      </span>
-                    </span>
-                    <span className="font-medium tabular">
-                      {cost.cost === 0 ? "бесплатно" : money(cost.cost)}
-                    </span>
-                  </label>
-                );
-              })}
-            </div>
+            <DeliveryPicker places={cart.length} />
 
             {needsAddress && (
               <div className="mt-4">
@@ -276,9 +243,19 @@ export default function CheckoutPage() {
             </div>
           </dl>
 
-          <Button type="submit" className="mt-5 w-full">
+          <Button
+            type="submit"
+            className="mt-5 w-full"
+            disabled={!deliveryReady(delivery)}
+          >
             Оформить заказ
           </Button>
+
+          {!deliveryReady(delivery) && (
+            <p className="mt-3 text-sm text-ink-2">
+              Выберите город и пункт выдачи — без них СДЭК не посчитает срок.
+            </p>
+          )}
 
           {FORMS_ARE_MOCKED && (
             <p className="mt-3 text-sm text-ink-3">

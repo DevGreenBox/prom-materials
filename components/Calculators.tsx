@@ -2,9 +2,8 @@
 
 import { useState } from "react";
 
-import { deliveryCost, zones } from "@/lib/delivery";
+import { deliveryModes } from "@/lib/delivery";
 import { money } from "@/lib/format";
-import { setZone, useStore } from "@/lib/store";
 import { wholesaleTiers } from "@/lib/site";
 
 const field =
@@ -98,50 +97,22 @@ export function WholesaleCalculator() {
 }
 
 /**
- * Направления доставки. Не таблица, а выбор: отмеченное направление
- * запоминается и подставляется в корзину — иначе человек прочитал ставку
- * и всё равно выбирает её заново на оформлении.
- *
- * Поля «вес заказа» здесь нет: массы позиций в объявлениях не указаны,
- * а считать по выдуманному весу — значит показывать цифру, которую никто
- * не подтвердит.
+ * Способы доставки на главной — справка, а не выбор: стоимость СДЭК зависит
+ * от города и пункта выдачи, а их спрашивают в корзине, когда уже понятно,
+ * что и сколько везти.
  */
 export function DeliveryRates() {
-  const { zone: chosen, ready } = useStore();
-
   return (
-    <div className="grid gap-x-5 gap-y-4 sm:grid-cols-2 lg:grid-cols-4">
-      {zones.map((zone) => {
-        const { cost, days } = deliveryCost(zone.id);
-        const active = ready && chosen === zone.id;
-
-        return (
-          <button
-            key={zone.id}
-            type="button"
-            onClick={() => setZone(zone.id)}
-            aria-pressed={active}
-            className={`border-t-2 pt-3 text-left transition-colors duration-150 ${
-              active
-                ? "border-accent"
-                : "border-line hover:border-ink-3"
-            }`}
-          >
-            <span className="flex items-baseline gap-2 text-base">
-              {zone.name}
-              {active && (
-                <span className="font-mono text-xs text-accent">выбрано</span>
-              )}
-            </span>
-            <span className="mt-1 block text-xl font-semibold tabular">
-              {cost === 0 ? "бесплатно" : money(cost)}
-            </span>
-            <span className="block text-sm text-ink-2">
-              {zone.note}, {days}
-            </span>
-          </button>
-        );
-      })}
-    </div>
+    <dl className="grid gap-x-5 gap-y-4 sm:grid-cols-3">
+      {deliveryModes.map((mode) => (
+        <div key={mode.id} className="border-t border-line pt-3">
+          <dt className="text-base">{mode.name}</dt>
+          <dd className="mt-1 text-xl font-semibold">
+            {mode.id === "pickup" ? "бесплатно" : "по тарифу СДЭК"}
+          </dd>
+          <dd className="text-sm text-ink-2">{mode.note}</dd>
+        </div>
+      ))}
+    </dl>
   );
 }

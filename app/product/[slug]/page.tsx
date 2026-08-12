@@ -9,7 +9,7 @@ import {
   StickyBuyBar,
   ViewTracker,
 } from "@/components/CartActions";
-import { ProductCard } from "@/components/ProductCard";
+import { ProductGrid } from "@/components/ProductCard";
 import { ProductGallery } from "@/components/Photos";
 import {
   Breadcrumbs,
@@ -65,9 +65,11 @@ export default async function ProductPage(props: PageProps<"/product/[slug]">) {
 
   const section = sectionOf(product);
   const group = groupOf(product);
+  // Три штуки: сетка каталога — три колонки, четвёртая карточка оставляла
+  // дыру в ряду.
   const similar = productsOf({ group: product.group })
     .filter((item) => item.slug !== product.slug)
-    .slice(0, 4);
+    .slice(0, 3);
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -159,7 +161,10 @@ export default async function ProductPage(props: PageProps<"/product/[slug]">) {
       </div>
 
       <section className="mt-12 grid gap-x-5 gap-y-8 lg:mt-16 lg:grid-cols-12">
-        <div className="lg:col-span-7">
+        {/* min-w-0: без него минимальная ширина колонки равна min-width
+            таблицы характеристик, и на телефоне страница уезжала вправо
+            вместо того, чтобы таблица прокручивалась внутри себя. */}
+        <div className="min-w-0 lg:col-span-7">
           <SectionTitle>Характеристики</SectionTitle>
           {Object.keys(product.specs).length === 0 ? (
             <p className="text-base text-ink-2">
@@ -168,7 +173,7 @@ export default async function ProductPage(props: PageProps<"/product/[slug]">) {
             </p>
           ) : (
           <div className="overflow-x-auto">
-            <table className="w-full min-w-[380px] text-base">
+            <table className="w-full text-base sm:min-w-[380px]">
               <tbody>
                 {Object.entries(product.specs).map(([key, value], index) => (
                   <tr
@@ -232,11 +237,10 @@ export default async function ProductPage(props: PageProps<"/product/[slug]">) {
           >
             Похожие номиналы
           </SectionTitle>
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            {similar.map((item) => (
-              <ProductCard key={item.slug} product={item} />
-            ))}
-          </div>
+          {/* Та же сетка, что в каталоге: у собственной не было колонки
+              для телефона, и карточка растягивалась по содержимому,
+              утаскивая за собой всю страницу. */}
+          <ProductGrid products={similar} />
         </section>
       )}
     </Container>

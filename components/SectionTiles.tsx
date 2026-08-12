@@ -11,17 +11,17 @@ export type SectionTile = {
 };
 
 /**
- * Разделы каталога плитками. На широком экране плитка переворачивается
- * при наведении и показывает подгруппы: лицевая сторона отвечает «что это»,
- * оборот — «куда именно идти», и оба ответа занимают одно место.
+ * Разделы каталога плитками. Название и счётчик стоят на месте всегда,
+ * а при наведении поверх нижней части плитки проявляется список подгрупп.
  *
- * Переворот только там, где есть курсор. На тач-устройстве наведения нет,
- * поэтому плитка остаётся обычной ссылкой в раздел, а подгруппы там
- * открываются из меню.
+ * Раньше плитка переворачивалась в 3D. От переворота пришлось отказаться:
+ * в Safari `backface-visibility` в связке с вложенными трансформациями
+ * не срабатывает, и лицевая надпись просвечивала сквозь оборот зеркально —
+ * поверх названия проступало «ичиктад и ПИК». Проявление не полагается
+ * на трёхмерность и ведёт себя одинаково во всех браузерах.
  *
- * Снимка раздела может не быть — тогда на лицевой стороне стоит знак
- * из общего набора. Файлы кладутся в `public/images/sections/<слаг>.webp`
- * и подхватываются сами.
+ * Снимка раздела может не быть — тогда стоит знак из общего набора.
+ * Файлы кладутся в `public/images/sections/<слаг>.webp` и подхватываются сами.
  */
 export function SectionTiles({ tiles }: { tiles: SectionTile[] }) {
   return (
@@ -29,58 +29,54 @@ export function SectionTiles({ tiles }: { tiles: SectionTile[] }) {
       {tiles.map(({ section, count, image, Icon }) => (
         <div
           key={section.slug}
-          className="group h-56 [perspective:1200px] sm:h-64"
+          className="group relative h-56 overflow-hidden rounded-md border border-line bg-surface transition-colors duration-150 hover:border-accent sm:h-64"
         >
-          <div className="relative size-full transition-transform duration-500 [transform-style:preserve-3d] group-focus-within:[transform:rotateY(180deg)] sm:group-hover:[transform:rotateY(180deg)]">
-            {/* Лицевая сторона */}
-            <Link
-              href={`/catalog/${section.slug}`}
-              className="absolute inset-0 flex flex-col justify-between overflow-hidden rounded-md border border-line bg-surface p-4 [backface-visibility:hidden]"
-            >
-              <span className="relative z-10">
-                <span className="block text-xl font-semibold leading-7">
-                  {section.name}
-                </span>
-                <span className="mt-1 block font-mono text-sm text-ink-3">
-                  {count} позиций
-                </span>
-              </span>
+          {/* Подложка: снимок раздела или знак в нижнем углу. */}
+          {image ? (
+            <Image
+              src={image}
+              alt=""
+              fill
+              sizes="(max-width: 1024px) 45vw, 300px"
+              className="object-cover object-bottom transition-opacity duration-200 sm:group-hover:opacity-0"
+            />
+          ) : (
+            <Icon className="pointer-events-none absolute bottom-4 right-4 size-16 text-accent transition-opacity duration-200 sm:group-hover:opacity-0" />
+          )}
 
-              {image ? (
-                <Image
-                  src={image}
-                  alt=""
-                  fill
-                  sizes="(max-width: 1024px) 45vw, 300px"
-                  className="object-cover object-bottom"
-                />
-              ) : (
-                <Icon className="size-16 self-end text-accent" />
-              )}
-            </Link>
+          {/* Клик по свободному месту плитки ведёт в раздел. */}
+          <Link
+            href={`/catalog/${section.slug}`}
+            aria-hidden
+            tabIndex={-1}
+            className="absolute inset-0 z-10"
+          />
 
-            {/* Оборот */}
-            <div className="absolute inset-0 flex flex-col overflow-hidden rounded-md border border-accent bg-page p-4 [backface-visibility:hidden] [transform:rotateY(180deg)]">
-              <Link
-                href={`/catalog/${section.slug}`}
-                className="text-xl font-semibold leading-7 text-accent"
-              >
-                {section.name}
-              </Link>
-              <ul className="mt-2 space-y-1 overflow-hidden text-base text-ink-2">
-                {section.groups.slice(0, 5).map((group) => (
-                  <li key={group.slug} className="truncate">
-                    <Link
-                      href={`/catalog/${section.slug}/${group.slug}`}
-                      className="transition-colors hover:text-accent"
-                    >
-                      {group.name}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
+          <Link
+            href={`/catalog/${section.slug}`}
+            className="absolute inset-x-4 top-4 z-30 block"
+          >
+            <span className="block text-xl font-semibold leading-7 transition-colors group-hover:text-accent">
+              {section.name}
+            </span>
+            <span className="mt-1 block font-mono text-sm text-ink-3">
+              {count} позиций
+            </span>
+          </Link>
+
+          {/* Подгруппы начинаются ниже заголовка — он остаётся на месте. */}
+          <ul className="pointer-events-none absolute inset-x-0 bottom-0 top-[5.75rem] z-20 space-y-1 overflow-hidden bg-surface px-4 pb-4 text-base text-ink-2 opacity-0 transition-opacity duration-200 sm:group-focus-within:pointer-events-auto sm:group-focus-within:opacity-100 sm:group-hover:pointer-events-auto sm:group-hover:opacity-100">
+            {section.groups.slice(0, 5).map((group) => (
+              <li key={group.slug} className="truncate">
+                <Link
+                  href={`/catalog/${section.slug}/${group.slug}`}
+                  className="transition-colors hover:text-accent"
+                >
+                  {group.name}
+                </Link>
+              </li>
+            ))}
+          </ul>
         </div>
       ))}
     </div>

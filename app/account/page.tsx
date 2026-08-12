@@ -10,7 +10,7 @@ import {
   Empty,
   MoreLink,
 } from "@/components/ui";
-import { zones } from "@/lib/delivery";
+import { deliveryLabel } from "@/lib/delivery";
 import { date, money, plural } from "@/lib/format";
 import { deleteList, listToCart, repeatOrder, useStore } from "@/lib/store";
 
@@ -25,7 +25,7 @@ export default function AccountPage() {
       />
 
       <h1 className="h1">Мои заказы</h1>
-      <p className="mt-2 max-w-[68ch] text-ink-2">
+      <p className="mt-3 max-w-[68ch] text-ink-2">
         Демо-режим: заказы и реквизиты хранятся в этом браузере.
       </p>
 
@@ -49,7 +49,6 @@ export default function AccountPage() {
             <ul className="divide-y divide-[var(--color-line)] border-y border-line">
               {orders.map((order) => {
                 const positions = order.lines.length;
-                const zone = zones.find((item) => item.id === order.zone);
                 return (
                   <li
                     key={order.id}
@@ -70,13 +69,13 @@ export default function AccountPage() {
                       {positions}{" "}
                       {plural(positions, "позиция", "позиции", "позиций")}
                     </p>
-                    <p className="text-sm text-ink-2">{zone?.name}</p>
+                    <p className="text-sm text-ink-2">{deliveryLabel(order.delivery)}</p>
                     <p className="text-sm">
                       Доставка:{" "}
                       <span className="tabular">
-                        {order.deliveryCost === 0
+                        {order.delivery.cost === 0
                           ? "бесплатно"
-                          : money(order.deliveryCost)}
+                          : money(order.delivery.cost)}
                       </span>
                     </p>
                     <span className="rounded-md bg-accent-soft px-2.5 py-1 text-sm text-accent">

@@ -24,7 +24,7 @@ export default function AboutPage() {
 
       <h1 className="h1">О компании</h1>
 
-      <div className="mt-6 gap-x-5 lg:grid lg:grid-cols-12 lg:items-start">
+      <div className="mt-3 gap-x-5 lg:grid lg:grid-cols-12 lg:items-start">
         <div className="space-y-4 text-ink-2 lg:col-span-7">
           <p>
             Поставляем промышленную автоматику и электрооборудование

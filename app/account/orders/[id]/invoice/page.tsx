@@ -5,7 +5,7 @@ import { useParams } from "next/navigation";
 import { ArrowLeft } from "@/components/icons";
 import { Button, ButtonLink, Container, Empty } from "@/components/ui";
 import { getProduct } from "@/lib/catalog";
-import { zones } from "@/lib/delivery";
+import { deliveryLabel } from "@/lib/delivery";
 import { date, money } from "@/lib/format";
 import { site } from "@/lib/site";
 import { useStore } from "@/lib/store";
@@ -41,8 +41,6 @@ export default function InvoicePage() {
       </Container>
     );
   }
-
-  const zone = zones.find((item) => item.id === order.zone);
   const lines = order.lines.flatMap((line) => {
     const product = getProduct(line.slug);
     return product ? [{ line, product }] : [];
@@ -87,7 +85,7 @@ export default function InvoicePage() {
               <p className="text-ink-2">ИНН {order.customer.inn}</p>
             )}
             <p className="text-ink-2">
-              {zone?.name}
+              {deliveryLabel(order.delivery)}
               {order.customer.address ? `, ${order.customer.address}` : ""}
             </p>
           </div>
@@ -140,13 +138,13 @@ export default function InvoicePage() {
               </tr>
               <tr>
                 <td colSpan={5} className="py-1 pr-3 text-ink-2">
-                  Доставка ({zone?.name})
+                  Доставка ({deliveryLabel(order.delivery)})
                 </td>
                 <td className="py-1 pr-3 text-right" />
                 <td className="py-1 text-right tabular">
-                  {order.deliveryCost === 0
+                  {order.delivery.cost === 0
                     ? "бесплатно"
-                    : money(order.deliveryCost)}
+                    : money(order.delivery.cost)}
                 </td>
               </tr>
               <tr className="font-semibold">
@@ -155,7 +153,7 @@ export default function InvoicePage() {
                 </td>
                 <td className="py-2 pr-3 text-right" />
                 <td className="py-2 text-right tabular">
-                  {money(goodsSum + order.deliveryCost)}
+                  {money(goodsSum + order.delivery.cost)}
                 </td>
               </tr>
             </tfoot>

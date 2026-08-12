@@ -3,7 +3,7 @@
 import { useSyncExternalStore } from "react";
 
 import { getProduct } from "@/lib/catalog";
-import { zones, type ZoneId } from "@/lib/delivery";
+import { pickup, type Delivery } from "@/lib/delivery";
 
 export type CartLine = { slug: string; qty: number };
 
@@ -23,8 +23,7 @@ export type Order = {
   createdAt: string;
   lines: CartLine[];
   customer: Customer;
-  zone: ZoneId;
-  deliveryCost: number;
+  delivery: Delivery;
   status: "Принят" | "В сборке" | "Отгружен";
 };
 
@@ -35,8 +34,8 @@ export type SavedFilter = { id: string; name: string; path: string };
 export type PurchaseList = { id: string; name: string; createdAt: string; lines: CartLine[] };
 
 type State = {
-  /** Выбранное направление доставки: живёт между блоком на главной и корзиной. */
-  zone: ZoneId;
+  /** Выбор доставки: заполняется в корзине и переезжает в оформление. */
+  delivery: Delivery;
   cart: CartLine[];
   favorites: string[];
   orders: Order[];
@@ -55,7 +54,7 @@ export type Store = State & {
 
 const STORAGE_KEY = "prom-materials:v1";
 const empty: State = {
-  zone: "pickup",
+  delivery: pickup,
   cart: [],
   favorites: [],
   orders: [],
@@ -95,9 +94,7 @@ function read(): State {
     if (!raw) return empty;
     const parsed = JSON.parse(raw) as Partial<State>;
     return {
-      zone: zones.some((item) => item.id === parsed.zone)
-        ? (parsed.zone as ZoneId)
-        : "pickup",
+      delivery: parsed.delivery?.mode ? (parsed.delivery as Delivery) : pickup,
       cart: Array.isArray(parsed.cart) ? parsed.cart : [],
       favorites: Array.isArray(parsed.favorites) ? parsed.favorites : [],
       orders: Array.isArray(parsed.orders) ? parsed.orders : [],
@@ -162,9 +159,9 @@ export function removeFromCart(slug: string) {
   commit({ ...state, cart: state.cart.filter((item) => item.slug !== slug) });
 }
 
-/** Направление доставки выбирают в двух местах — на главной и в корзине. */
-export function setZone(zone: ZoneId) {
-  commit({ ...state, zone });
+/** Доставку выбирают в корзине, а на оформлении она уже подставлена. */
+export function setDelivery(delivery: Delivery) {
+  commit({ ...state, delivery });
 }
 
 export function clearCart() {
@@ -258,8 +255,7 @@ export function toggleFavorite(slug: string) {
 /** Создаёт заказ из текущей корзины, очищает её и возвращает id заказа. */
 export function placeOrder(input: {
   customer: Customer;
-  zone: ZoneId;
-  deliveryCost: number;
+  delivery: Delivery;
 }): string {
   const now = new Date();
   const id = `${now.getTime()}`;

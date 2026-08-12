@@ -65,7 +65,9 @@ export default function RootLayout({
           К содержимому
         </a>
         <Header />
-        <main id="main" className="flex-1 pb-16">
+        {/* Без нижнего отступа: у страниц он свой, а общий давал белую
+            полосу между последним блоком на цветном фоне и подвалом. */}
+        <main id="main" className="flex-1">
           {children}
         </main>
         <Footer />

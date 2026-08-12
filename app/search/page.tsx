@@ -27,7 +27,7 @@ export default async function SearchPage(props: PageProps<"/search">) {
       <h1 className="h1">{query ? `Поиск: ${query}` : "Поиск по каталогу"}</h1>
 
       {query && (
-        <p className="mt-2 text-ink-2">
+        <p className="mt-3 text-ink-2">
           {found.length} {plural(found.length, "позиция", "позиции", "позиций")}
         </p>
       )}

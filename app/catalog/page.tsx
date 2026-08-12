@@ -24,7 +24,7 @@ export default function CatalogPage() {
       />
 
       <h1 className="h1">Каталог</h1>
-      <p className="mt-2 mb-8 max-w-[68ch] text-ink-2">
+      <p className="mt-3 mb-8 max-w-[68ch] text-ink-2">
         {products.length} позиций в {sections.length} разделах — всё со склада
         в Москве.
       </p>

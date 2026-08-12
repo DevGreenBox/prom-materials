@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 
 import { QtyInput } from "@/components/CartActions";
+import { DeliveryPicker } from "@/components/DeliveryPicker";
 import {
   Breadcrumbs,
   Button,
@@ -13,27 +14,24 @@ import {
   ParamLine,
   Thumb,
   Price,
-  Select,
   Stock,
 } from "@/components/ui";
 import { getProduct } from "@/lib/catalog";
-import { deliveryCost, zones, type ZoneId } from "@/lib/delivery";
+import { deliveryReady } from "@/lib/delivery";
 import { money, plural } from "@/lib/format";
 import {
   clearCart,
   removeFromCart,
   saveList,
   setQty,
-  setZone,
   useStore,
 } from "@/lib/store";
 
 export default function CartPage() {
-  const { cart, ready, cartCount, cartSum, zone } = useStore();
+  const { cart, ready, cartCount, cartSum, delivery } = useStore();
   const [confirmClear, setConfirmClear] = useState(false);
   const [listName, setListName] = useState("");
   const [saved, setSaved] = useState(false);
-  const delivery = deliveryCost(zone);
 
   const lines = cart.flatMap((line) => {
     const product = getProduct(line.slug);
@@ -163,30 +161,10 @@ export default function CartPage() {
             </dl>
 
             <div className="mt-5">
-              <label
-                htmlFor="zone"
-                className="mb-2 block text-xs font-medium uppercase tracking-[0.04em] text-ink-3"
-              >
+              <p className="mb-2 text-xs font-medium uppercase tracking-[0.04em] text-ink-3">
                 Доставка
-              </label>
-              <Select
-                id="zone"
-                value={zone}
-                onChange={(event) => setZone(event.target.value as ZoneId)}
-                className="w-full"
-              >
-                {zones.map((item) => (
-                  <option key={item.id} value={item.id}>
-                    {item.name}
-                  </option>
-                ))}
-              </Select>
-              <div className="mt-2 flex justify-between text-base">
-                <span className="text-ink-2">{delivery.days}</span>
-                <span className="font-medium tabular">
-                  {delivery.cost === 0 ? "бесплатно" : money(delivery.cost)}
-                </span>
-              </div>
+              </p>
+              <DeliveryPicker places={lines.length} />
             </div>
 
             {/* Итог стоит после выбора направления: сумма зависит от него,
@@ -196,9 +174,15 @@ export default function CartPage() {
               <span className="tabular">{money(cartSum + delivery.cost)}</span>
             </div>
 
-            <ButtonLink href="/checkout" className="mt-5 w-full">
-              Оформить заказ
-            </ButtonLink>
+            {deliveryReady(delivery) ? (
+              <ButtonLink href="/checkout" className="mt-5 w-full">
+                Оформить заказ
+              </ButtonLink>
+            ) : (
+              <p className="mt-5 rounded-md bg-surface px-4 py-3 text-sm text-ink-2">
+                Выберите способ доставки — и переходите к оформлению.
+              </p>
+            )}
 
             <p className="mt-3 text-sm text-ink-3">
               Цены — из наших объявлений. При объёме менеджер пересчитает.

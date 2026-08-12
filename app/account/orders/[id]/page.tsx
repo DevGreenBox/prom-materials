@@ -12,7 +12,7 @@ import {
   ParamLine,
 } from "@/components/ui";
 import { getProduct } from "@/lib/catalog";
-import { zones } from "@/lib/delivery";
+import { deliveryLabel } from "@/lib/delivery";
 import { date, money, plural } from "@/lib/format";
 import { repeatOrder, useStore } from "@/lib/store";
 
@@ -49,8 +49,6 @@ export default function OrderPage() {
       </Container>
     );
   }
-
-  const zone = zones.find((item) => item.id === order.zone);
   const lines = order.lines.flatMap((line) => {
     const product = getProduct(line.slug);
     return product ? [{ line, product }] : [];
@@ -73,7 +71,7 @@ export default function OrderPage() {
       <div className="flex flex-wrap items-baseline justify-between gap-4">
         <div>
           <h1 className="h1">Заказ № {order.number}</h1>
-          <p className="mt-1 text-ink-2">
+          <p className="mt-3 text-ink-2">
             от {date(order.createdAt)} · {order.status}
           </p>
         </div>
@@ -137,14 +135,14 @@ export default function OrderPage() {
               <div className="flex justify-between gap-4">
                 <dt className="text-ink-2">Доставка</dt>
                 <dd className="tabular">
-                  {order.deliveryCost === 0
+                  {order.delivery.cost === 0
                     ? "бесплатно"
-                    : money(order.deliveryCost)}
+                    : money(order.delivery.cost)}
                 </dd>
               </div>
               <div className="flex justify-between gap-4 text-lg font-semibold">
                 <dt>Итого</dt>
-                <dd className="tabular">{money(goodsSum + order.deliveryCost)}</dd>
+                <dd className="tabular">{money(goodsSum + order.delivery.cost)}</dd>
               </div>
             </dl>
           </div>
@@ -170,7 +168,7 @@ export default function OrderPage() {
               <div>
                 <dt className="text-ink-3">Доставка</dt>
                 <dd>
-                  {zone?.name}
+                  {deliveryLabel(order.delivery)}
                   {order.customer.address ? `, ${order.customer.address}` : ""}
                 </dd>
               </div>
