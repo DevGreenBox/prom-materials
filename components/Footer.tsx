@@ -26,9 +26,13 @@ const columns = [
   },
 ];
 
+/**
+ * Подвал. Верхней границы у него нет: фон отделяет его от белой страницы сам,
+ * а под блоком на таком же сером фоне (форма на главной) линия читалась швом.
+ */
 export function Footer() {
   return (
-    <footer className="no-print border-t border-line bg-surface">
+    <footer className="no-print bg-surface">
       <Container className="grid gap-x-5 gap-y-8 py-10 sm:grid-cols-2 lg:grid-cols-12 lg:py-12 [&>*]:lg:col-span-3">
         <div>
           <p className="text-xl font-semibold">
