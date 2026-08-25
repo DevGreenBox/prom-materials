@@ -35,9 +35,6 @@ export const products = productsData as unknown as Product[];
  */
 export const facetDefs = [
   { param: "brand", label: "Производитель", spec: null },
-  { param: "power", label: "Мощность", spec: "Мощность" },
-  { param: "current", label: "Номинальный ток", spec: "Номинальный ток" },
-  { param: "voltage", label: "Напряжение", spec: "Напряжение" },
   { param: "dn", label: "Условный проход", spec: "Условный проход" },
   { param: "pressure", label: "Давление", spec: "Давление" },
   { param: "screen", label: "Диагональ", spec: "Диагональ" },
@@ -51,6 +48,27 @@ export const facetDefs = [
   { param: "condition", label: "Состояние", spec: "Состояние" },
   { param: "country", label: "Производство", spec: "Производство" },
 ] as const;
+
+/**
+ * Числовые фасеты — диапазоном «от–до», а не списком галочек. Номиналов
+ * слишком много, чтобы выбирать их поштучно: 52 разных тока, 38 мощностей,
+ * и подбирают их не точным совпадением, а вилкой — «автомат до 100 А».
+ *
+ * Границы уезжают в адрес одним значением «мин-макс», как у цены.
+ */
+export const rangeFacets = [
+  { param: "power", label: "Мощность, кВт", spec: "Мощность" },
+  { param: "voltage", label: "Напряжение, В", spec: "Напряжение" },
+  { param: "current", label: "Ток, А", spec: "Номинальный ток" },
+] as const;
+
+export type RangeParam = (typeof rangeFacets)[number]["param"];
+
+/** Значение диапазона из адреса: «1.5-11» → [1.5, 11]. */
+export function parseRange(value: string | undefined): [number, number] {
+  const [min, max] = (value ?? "").split("-").map(Number);
+  return [min, max];
+}
 
 export type FacetParam = (typeof facetDefs)[number]["param"];
 export type Facet = { param: string; label: string; values: { value: string; count: number }[] };
@@ -155,18 +173,44 @@ export function buildFacets(scope: Product[], selection: Selection = {}): Facet[
 
 export function filterProducts(scope: Product[], selection: Selection): Product[] {
   const active = facetDefs.filter((def) => selection[def.param]?.length);
-  // Границы цены приходят одним значением вида «1000-50000»: диапазон живёт
-  // в том же объекте выбора, что и фасеты, чтобы URL оставался одним местом.
-  const [min, max] = (selection.price?.[0] ?? "").split("-").map(Number);
+  // Границы цены и номиналов приходят одним значением вида «1000-50000»:
+  // диапазон живёт в том же объекте выбора, что и фасеты, чтобы адрес
+  // оставался единственным местом состояния.
+  const [minPrice, maxPrice] = parseRange(selection.price?.[0]);
+  const ranges = rangeFacets
+    .filter((def) => selection[def.param]?.length)
+    .map((def) => ({ def, bounds: parseRange(selection[def.param][0]) }));
 
   return scope.filter((product) => {
-    if (Number.isFinite(min) && product.price < min) return false;
-    if (Number.isFinite(max) && max > 0 && product.price > max) return false;
+    if (Number.isFinite(minPrice) && product.price < minPrice) return false;
+    if (Number.isFinite(maxPrice) && maxPrice > 0 && product.price > maxPrice) return false;
+
+    for (const { def, bounds } of ranges) {
+      // Позиция без номинала под вилку не подходит: обещать «до 100 А»
+      // там, где ток вообще не указан, нельзя.
+      const raw = product.specs[def.spec];
+      if (!raw) return false;
+      const value = numeric(raw);
+      if (Number.isFinite(bounds[0]) && value < bounds[0]) return false;
+      if (Number.isFinite(bounds[1]) && bounds[1] > 0 && value > bounds[1]) return false;
+    }
+
     return active.every((def) => {
       const value = facetValue(product, def.param, def.spec);
       return value !== undefined && selection[def.param].includes(value);
     });
   });
+}
+
+/** Наименьший и наибольший номинал в выборке — подсказка для полей «от–до». */
+export function rangeBounds(scope: Product[], spec: string): [number, number] | null {
+  const values = scope
+    .map((product) => product.specs[spec])
+    .filter(Boolean)
+    .map(numeric)
+    .filter(Number.isFinite);
+  if (values.length < 2) return null;
+  return [Math.min(...values), Math.max(...values)];
 }
 
 export function sortProducts(list: Product[], sort: SortValue): Product[] {

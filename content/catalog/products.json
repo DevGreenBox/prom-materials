@@ -669,10 +669,10 @@
     "price": 140000,
     "inStock": true,
     "specs": {
-      "Номинальный ток": "60 А"
+      "Номинальный ток": "125 А"
     },
     "params": [
-      "60 А"
+      "125 А"
     ],
     "images": [
       "/images/products/8178293591-1.jpg",
@@ -1311,10 +1311,10 @@
     "price": 160000,
     "inStock": true,
     "specs": {
-      "Номинальный ток": "800 А"
+      "Номинальный ток": "1000 А"
     },
     "params": [
-      "800 А"
+      "1000 А"
     ],
     "images": [
       "/images/products/8114623185-1.jpg",
@@ -1632,10 +1632,10 @@
     "price": 170000,
     "inStock": true,
     "specs": {
-      "Номинальный ток": "1000 А"
+      "Номинальный ток": "2000 А"
     },
     "params": [
-      "1000 А"
+      "2000 А"
     ],
     "images": [
       "/images/products/8114196672-1.jpg",
@@ -2022,10 +2022,10 @@
     "price": 140000,
     "inStock": true,
     "specs": {
-      "Номинальный ток": "800 А"
+      "Номинальный ток": "1250 А"
     },
     "params": [
-      "800 А"
+      "1250 А"
     ],
     "images": [
       "/images/products/8082436136-1.jpg",
@@ -3463,12 +3463,8 @@
     "unit": "шт",
     "price": 100000,
     "inStock": true,
-    "specs": {
-      "Номинальный ток": "120 А"
-    },
-    "params": [
-      "120 А"
-    ],
+    "specs": {},
+    "params": [],
     "images": [
       "/images/products/7986640779-1.jpg",
       "/images/products/7986640779-2.jpg",
@@ -3788,12 +3784,8 @@
     "unit": "шт",
     "price": 80000,
     "inStock": true,
-    "specs": {
-      "Номинальный ток": "1000 А"
-    },
-    "params": [
-      "1000 А"
-    ],
+    "specs": {},
+    "params": [],
     "images": [
       "/images/products/7954652117-1.jpg",
       "/images/products/7954652117-2.jpg",
@@ -5482,12 +5474,8 @@
     "unit": "шт",
     "price": 35000,
     "inStock": true,
-    "specs": {
-      "Номинальный ток": "250 А"
-    },
-    "params": [
-      "250 А"
-    ],
+    "specs": {},
+    "params": [],
     "images": [
       "/images/products/7857956666-1.jpg",
       "/images/products/7857956666-2.jpg",
@@ -6496,10 +6484,10 @@
     "price": 25000,
     "inStock": true,
     "specs": {
-      "Номинальный ток": "400 А"
+      "Номинальный ток": "800 А"
     },
     "params": [
-      "400 А"
+      "800 А"
     ],
     "images": [
       "/images/products/7762579050-1.jpg",
@@ -7978,12 +7966,8 @@
     "unit": "шт",
     "price": 26000,
     "inStock": true,
-    "specs": {
-      "Номинальный ток": "2 А"
-    },
-    "params": [
-      "2 А"
-    ],
+    "specs": {},
+    "params": [],
     "images": [],
     "address": "Москва, Бурцевская ул., 7А"
   },
@@ -9595,12 +9579,8 @@
     "unit": "шт",
     "price": 10000,
     "inStock": true,
-    "specs": {
-      "Номинальный ток": "1250 А"
-    },
-    "params": [
-      "1250 А"
-    ],
+    "specs": {},
+    "params": [],
     "images": [
       "/images/products/7506169284-1.jpg",
       "/images/products/7506169284-2.jpg",
@@ -10129,12 +10109,10 @@
     "price": 10000,
     "inStock": true,
     "specs": {
-      "Напряжение": "100 В",
       "Выходной сигнал": "4–20 мА",
       "Тип датчика": "Pt100"
     },
     "params": [
-      "100 В",
       "4–20 мА",
       "Pt100"
     ],
@@ -10819,12 +10797,8 @@
     "unit": "шт",
     "price": 40000,
     "inStock": true,
-    "specs": {
-      "Номинальный ток": "24 А"
-    },
-    "params": [
-      "24 А"
-    ],
+    "specs": {},
+    "params": [],
     "images": [
       "/images/products/7378405175-1.jpg",
       "/images/products/7378405175-2.jpg",
@@ -11348,12 +11322,8 @@
     "unit": "шт",
     "price": 30000,
     "inStock": true,
-    "specs": {
-      "Напряжение": "10 В"
-    },
-    "params": [
-      "10 В"
-    ],
+    "specs": {},
+    "params": [],
     "images": [],
     "address": "Москва, Бурцевская ул., 7А"
   },
@@ -12765,12 +12735,8 @@
     "unit": "шт",
     "price": 70000,
     "inStock": true,
-    "specs": {
-      "Номинальный ток": "85 А"
-    },
-    "params": [
-      "85 А"
-    ],
+    "specs": {},
+    "params": [],
     "images": [
       "/images/products/4786741049-1.jpg",
       "/images/products/4786741049-2.jpg",
@@ -13483,10 +13449,10 @@
     "price": 85000,
     "inStock": true,
     "specs": {
-      "Номинальный ток": "630 А"
+      "Номинальный ток": "1250 А"
     },
     "params": [
-      "630 А"
+      "1250 А"
     ],
     "images": [
       "/images/products/4691413761-1.jpg",
@@ -13574,11 +13540,9 @@
     "price": 20000,
     "inStock": true,
     "specs": {
-      "Напряжение": "10 В",
       "Интерфейс": "Modbus"
     },
     "params": [
-      "10 В",
       "Modbus"
     ],
     "images": [
@@ -14533,12 +14497,8 @@
     "unit": "шт",
     "price": 75000,
     "inStock": true,
-    "specs": {
-      "Номинальный ток": "77 А"
-    },
-    "params": [
-      "77 А"
-    ],
+    "specs": {},
+    "params": [],
     "images": [
       "/images/products/4594690428-1.jpg",
       "/images/products/4594690428-2.jpg",
@@ -15592,12 +15552,8 @@
     "unit": "шт",
     "price": 4000,
     "inStock": true,
-    "specs": {
-      "Напряжение": "500 В"
-    },
-    "params": [
-      "500 В"
-    ],
+    "specs": {},
+    "params": [],
     "images": [
       "/images/products/4467304818-1.jpg",
       "/images/products/4467304818-2.jpg"
@@ -15669,12 +15625,8 @@
     "unit": "шт",
     "price": 135000,
     "inStock": true,
-    "specs": {
-      "Номинальный ток": "1600 А"
-    },
-    "params": [
-      "1600 А"
-    ],
+    "specs": {},
+    "params": [],
     "images": [
       "/images/products/4466946346-1.jpg",
       "/images/products/4466946346-2.jpg",
@@ -15763,10 +15715,10 @@
     "price": 230000,
     "inStock": true,
     "specs": {
-      "Номинальный ток": "1000 А"
+      "Номинальный ток": "1250 А"
     },
     "params": [
-      "1000 А"
+      "1250 А"
     ],
     "images": [
       "/images/products/4435402085-1.jpg",
@@ -15838,10 +15790,10 @@
     "price": 150000,
     "inStock": true,
     "specs": {
-      "Номинальный ток": "1600 А"
+      "Номинальный ток": "2500 А"
     },
     "params": [
-      "1600 А"
+      "2500 А"
     ],
     "images": [
       "/images/products/4435232609-1.jpg",
@@ -18847,10 +18799,10 @@
     "price": 35000,
     "inStock": true,
     "specs": {
-      "Номинальный ток": "5,2 А"
+      "Номинальный ток": "100 А"
     },
     "params": [
-      "5,2 А"
+      "100 А"
     ],
     "images": [],
     "address": "Москва, Бурцевская ул., 7А"
@@ -20920,10 +20872,10 @@
     "price": 90000,
     "inStock": true,
     "specs": {
-      "Номинальный ток": "800 А"
+      "Номинальный ток": "1000 А"
     },
     "params": [
-      "800 А"
+      "1000 А"
     ],
     "images": [],
     "address": "Москва, Бурцевская ул., 7А"
@@ -21269,12 +21221,8 @@
     "unit": "шт",
     "price": 100000,
     "inStock": true,
-    "specs": {
-      "Номинальный ток": "7850 А"
-    },
-    "params": [
-      "7850 А"
-    ],
+    "specs": {},
+    "params": [],
     "images": [
       "/images/products/3795201156-1.jpg",
       "/images/products/3795201156-2.jpg",
@@ -21294,12 +21242,8 @@
     "unit": "шт",
     "price": 18000,
     "inStock": true,
-    "specs": {
-      "Напряжение": "10 В"
-    },
-    "params": [
-      "10 В"
-    ],
+    "specs": {},
+    "params": [],
     "images": [
       "/images/products/3795100100-1.jpg",
       "/images/products/3795100100-2.jpg",
@@ -21986,12 +21930,8 @@
     "unit": "шт",
     "price": 80000,
     "inStock": true,
-    "specs": {
-      "Напряжение": "24 В"
-    },
-    "params": [
-      "24 В"
-    ],
+    "specs": {},
+    "params": [],
     "images": [
       "/images/products/3699040273-1.jpg",
       "/images/products/3699040273-2.jpg",
@@ -24160,12 +24100,8 @@
     "unit": "шт",
     "price": 2500,
     "inStock": true,
-    "specs": {
-      "Номинальный ток": "16 А"
-    },
-    "params": [
-      "16 А"
-    ],
+    "specs": {},
+    "params": [],
     "images": [
       "/images/products/3283244407-1.jpg",
       "/images/products/3283244407-2.jpg",
@@ -24282,12 +24218,8 @@
     "unit": "шт",
     "price": 170000,
     "inStock": true,
-    "specs": {
-      "Номинальный ток": "1250 А"
-    },
-    "params": [
-      "1250 А"
-    ],
+    "specs": {},
+    "params": [],
     "images": [
       "/images/products/3251647711-1.jpg",
       "/images/products/3251647711-2.jpg",
@@ -24514,12 +24446,10 @@
     "price": 45000,
     "inStock": true,
     "specs": {
-      "Напряжение": "10 В",
       "Условный проход": "Ду 32",
       "Выходной сигнал": "4–20 мА"
     },
     "params": [
-      "10 В",
       "Ду 32",
       "4–20 мА"
     ],
@@ -24609,12 +24539,8 @@
     "unit": "шт",
     "price": 10000,
     "inStock": true,
-    "specs": {
-      "Напряжение": "10 В"
-    },
-    "params": [
-      "10 В"
-    ],
+    "specs": {},
+    "params": [],
     "images": [
       "/images/products/3187686366-1.jpg",
       "/images/products/3187686366-2.jpg",
@@ -26431,12 +26357,8 @@
     "unit": "шт",
     "price": 5000,
     "inStock": true,
-    "specs": {
-      "Номинальный ток": "1154 А"
-    },
-    "params": [
-      "1154 А"
-    ],
+    "specs": {},
+    "params": [],
     "images": [],
     "address": "Москва, Бурцевская ул., 7А"
   },
@@ -27328,11 +27250,9 @@
     "price": 18000,
     "inStock": true,
     "specs": {
-      "Напряжение": "10 В",
       "Выходной сигнал": "4–20 мА"
     },
     "params": [
-      "10 В",
       "4–20 мА"
     ],
     "images": [
@@ -27713,11 +27633,9 @@
     "price": 85000,
     "inStock": true,
     "specs": {
-      "Номинальный ток": "170 А",
       "Состояние": "новое"
     },
     "params": [
-      "170 А",
       "новое"
     ],
     "images": [
@@ -28476,11 +28394,9 @@
     "price": 14000,
     "inStock": true,
     "specs": {
-      "Напряжение": "100 В",
       "Тип датчика": "Pt100"
     },
     "params": [
-      "100 В",
       "Pt100"
     ],
     "images": [
@@ -28538,12 +28454,10 @@
     "price": 15000,
     "inStock": true,
     "specs": {
-      "Напряжение": "100 В",
       "Выходной сигнал": "4–20 мА",
       "Тип датчика": "Pt100"
     },
     "params": [
-      "100 В",
       "4–20 мА",
       "Pt100"
     ],
@@ -28781,12 +28695,8 @@
     "unit": "шт",
     "price": 10000,
     "inStock": true,
-    "specs": {
-      "Напряжение": "232 В"
-    },
-    "params": [
-      "232 В"
-    ],
+    "specs": {},
+    "params": [],
     "images": [],
     "address": "Москва, Бурцевская ул., 7А"
   },
@@ -29247,12 +29157,8 @@
     "unit": "шт",
     "price": 220000,
     "inStock": true,
-    "specs": {
-      "Номинальный ток": "1250 А"
-    },
-    "params": [
-      "1250 А"
-    ],
+    "specs": {},
+    "params": [],
     "images": [
       "/images/products/2387728016-1.jpg",
       "/images/products/2387728016-2.jpg",
@@ -29396,12 +29302,8 @@
     "unit": "шт",
     "price": 15000,
     "inStock": true,
-    "specs": {
-      "Номинальный ток": "250 А"
-    },
-    "params": [
-      "250 А"
-    ],
+    "specs": {},
+    "params": [],
     "images": [
       "/images/products/2387197974-1.jpg",
       "/images/products/2387197974-2.jpg",
@@ -29455,12 +29357,8 @@
     "unit": "шт",
     "price": 25000,
     "inStock": true,
-    "specs": {
-      "Номинальный ток": "630 А"
-    },
-    "params": [
-      "630 А"
-    ],
+    "specs": {},
+    "params": [],
     "images": [
       "/images/products/2386999292-1.jpg",
       "/images/products/2386999292-2.jpg",
@@ -30110,10 +30008,10 @@
     "price": 100000,
     "inStock": true,
     "specs": {
-      "Номинальный ток": "800 А"
+      "Номинальный ток": "2500 А"
     },
     "params": [
-      "800 А"
+      "2500 А"
     ],
     "images": [
       "/images/products/2323231686-1.jpg",
@@ -30641,12 +30539,9 @@
     "price": 500,
     "inStock": true,
     "specs": {
-      "Номинальный ток": "16 А",
       "Производство": "Австрия"
     },
-    "params": [
-      "16 А"
-    ],
+    "params": [],
     "images": [
       "/images/products/2291179401-1.jpg",
       "/images/products/2291179401-2.jpg",
@@ -31088,12 +30983,8 @@
     "unit": "шт",
     "price": 7500,
     "inStock": true,
-    "specs": {
-      "Напряжение": "10 В"
-    },
-    "params": [
-      "10 В"
-    ],
+    "specs": {},
+    "params": [],
     "images": [],
     "address": "Москва, Бурцевская ул., 7А"
   },
@@ -31108,12 +30999,10 @@
     "price": 18000,
     "inStock": true,
     "specs": {
-      "Номинальный ток": "30 А",
-      "Напряжение": "10 В"
+      "Номинальный ток": "30 А"
     },
     "params": [
-      "30 А",
-      "10 В"
+      "30 А"
     ],
     "images": [
       "/images/products/2258950490-1.jpg",
@@ -32603,12 +32492,10 @@
     "price": 36000,
     "inStock": true,
     "specs": {
-      "Мощность": "300 кВт",
-      "Номинальный ток": "1000 А"
+      "Мощность": "300 кВт"
     },
     "params": [
-      "300 кВт",
-      "1000 А"
+      "300 кВт"
     ],
     "images": [
       "/images/products/2067853479-1.jpg",
@@ -33287,10 +33174,10 @@
     "price": 4000,
     "inStock": true,
     "specs": {
-      "Номинальный ток": "100 А"
+      "Номинальный ток": "630 А"
     },
     "params": [
-      "100 А"
+      "630 А"
     ],
     "images": [
       "/images/products/2003501648-1.jpg",
@@ -33417,12 +33304,8 @@
     "unit": "шт",
     "price": 25000,
     "inStock": true,
-    "specs": {
-      "Номинальный ток": "177 А"
-    },
-    "params": [
-      "177 А"
-    ],
+    "specs": {},
+    "params": [],
     "images": [
       "/images/products/2003276800-1.jpg",
       "/images/products/2003276800-2.jpg",
@@ -33470,12 +33353,8 @@
     "unit": "шт",
     "price": 40000,
     "inStock": true,
-    "specs": {
-      "Номинальный ток": "400 А"
-    },
-    "params": [
-      "400 А"
-    ],
+    "specs": {},
+    "params": [],
     "images": [],
     "address": "Москва, Бурцевская ул., 7А"
   },
@@ -34324,12 +34203,9 @@
     "price": 5000,
     "inStock": true,
     "specs": {
-      "Номинальный ток": "1000 А",
       "Производство": "Китай"
     },
-    "params": [
-      "1000 А"
-    ],
+    "params": [],
     "images": [
       "/images/products/1875150544-1.jpg",
       "/images/products/1875150544-2.jpg",
@@ -34839,10 +34715,10 @@
     "price": 40000,
     "inStock": true,
     "specs": {
-      "Номинальный ток": "1000 А"
+      "Номинальный ток": "1250 А"
     },
     "params": [
-      "1000 А"
+      "1250 А"
     ],
     "images": [
       "/images/products/1724838457-1.jpg",
@@ -35918,12 +35794,8 @@
     "unit": "шт",
     "price": 10000,
     "inStock": true,
-    "specs": {
-      "Номинальный ток": "630 А"
-    },
-    "params": [
-      "630 А"
-    ],
+    "specs": {},
+    "params": [],
     "images": [
       "/images/products/1388159693-1.jpg",
       "/images/products/1388159693-2.jpg",
@@ -36182,12 +36054,8 @@
     "unit": "шт",
     "price": 7000,
     "inStock": true,
-    "specs": {
-      "Номинальный ток": "100 А"
-    },
-    "params": [
-      "100 А"
-    ],
+    "specs": {},
+    "params": [],
     "images": [
       "/images/products/1291763147-1.jpg",
       "/images/products/1291763147-2.jpg",
@@ -37577,12 +37445,8 @@
     "unit": "шт",
     "price": 5000,
     "inStock": true,
-    "specs": {
-      "Номинальный ток": "630 А"
-    },
-    "params": [
-      "630 А"
-    ],
+    "specs": {},
+    "params": [],
     "images": [
       "/images/products/1025673410-1.jpg",
       "/images/products/1025673410-2.jpg",
@@ -38114,12 +37978,8 @@
     "unit": "шт",
     "price": 4000,
     "inStock": true,
-    "specs": {
-      "Номинальный ток": "1250 А"
-    },
-    "params": [
-      "1250 А"
-    ],
+    "specs": {},
+    "params": [],
     "images": [
       "/images/products/929309494-1.jpg",
       "/images/products/929309494-2.jpg",
@@ -38878,11 +38738,9 @@
     "price": 15000,
     "inStock": true,
     "specs": {
-      "Номинальный ток": "1600 А",
       "Состояние": "новое"
     },
     "params": [
-      "1600 А",
       "новое"
     ],
     "images": [],
@@ -39122,12 +38980,8 @@
     "unit": "шт",
     "price": 30000,
     "inStock": true,
-    "specs": {
-      "Номинальный ток": "1050 А"
-    },
-    "params": [
-      "1050 А"
-    ],
+    "specs": {},
+    "params": [],
     "images": [
       "/images/products/886119071-1.jpg",
       "/images/products/886119071-2.jpg",
@@ -39862,12 +39716,8 @@
     "unit": "шт",
     "price": 1000,
     "inStock": true,
-    "specs": {
-      "Номинальный ток": "3200 А"
-    },
-    "params": [
-      "3200 А"
-    ],
+    "specs": {},
+    "params": [],
     "images": [],
     "address": "Москва, Бурцевская ул., 7А"
   },
@@ -39933,12 +39783,8 @@
     "unit": "шт",
     "price": 2000,
     "inStock": true,
-    "specs": {
-      "Номинальный ток": "1250 А"
-    },
-    "params": [
-      "1250 А"
-    ],
+    "specs": {},
+    "params": [],
     "images": [],
     "address": "Москва, Бурцевская ул., 7А"
   },
@@ -40073,11 +39919,9 @@
     "price": 3000,
     "inStock": true,
     "specs": {
-      "Номинальный ток": "1600 А",
       "Состояние": "новое"
     },
     "params": [
-      "1600 А",
       "новое"
     ],
     "images": [
@@ -40374,12 +40218,8 @@
     "unit": "шт",
     "price": 30000,
     "inStock": true,
-    "specs": {
-      "Номинальный ток": "600 А"
-    },
-    "params": [
-      "600 А"
-    ],
+    "specs": {},
+    "params": [],
     "images": [
       "/images/products/786371591-1.jpg",
       "/images/products/786371591-2.jpg",
@@ -40470,12 +40310,8 @@
     "unit": "шт",
     "price": 1500,
     "inStock": true,
-    "specs": {
-      "Номинальный ток": "100 А"
-    },
-    "params": [
-      "100 А"
-    ],
+    "specs": {},
+    "params": [],
     "images": [
       "/images/products/780811220-1.jpg",
       "/images/products/780811220-2.jpg",

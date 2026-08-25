@@ -12,6 +12,8 @@ import { deleteFilter, saveFilter, useStore } from "@/lib/store";
 import {
   buildFacets,
   facetDefs,
+  rangeBounds,
+  rangeFacets,
   filterProducts,
   sortOptions,
   sortProducts,
@@ -29,8 +31,10 @@ function parseSelection(params: URLSearchParams): Selection {
     const value = params.get(def.param);
     if (value) selection[def.param] = value.split("|");
   }
-  const price = params.get("price");
-  if (price) selection.price = [price];
+  for (const def of [...rangeFacets, { param: "price" }]) {
+    const value = params.get(def.param);
+    if (value) selection[def.param] = [value];
+  }
   return selection;
 }
 
@@ -98,17 +102,37 @@ export function CatalogView({ products }: { products: Product[] }) {
     });
   }
 
+  function setRange(param: string, next: string) {
+    update((params) => {
+      if (next) params.set(param, next);
+      else params.delete(param);
+    });
+  }
+
   const filterPanel = (
     <div className="space-y-6">
-      <PriceRange
+      <RangeField
+        label="Цена, ₽"
         value={selection.price?.[0] ?? ""}
-        onChange={(next) =>
-          update((params) => {
-            if (next) params.set("price", next);
-            else params.delete("price");
-          })
-        }
+        onChange={(next) => setRange("price", next)}
       />
+
+      {/* Номиналы — вилкой: значений слишком много, чтобы выбирать галочками,
+          да и подбирают их не точным совпадением, а «от и до». */}
+      {rangeFacets.map((def) => {
+        const bounds = rangeBounds(products, def.spec);
+        if (!bounds) return null;
+        return (
+          <RangeField
+            key={def.param}
+            label={def.label}
+            hint={`${number(bounds[0])} — ${number(bounds[1])}`}
+            decimals
+            value={selection[def.param]?.[0] ?? ""}
+            onChange={(next) => setRange(def.param, next)}
+          />
+        );
+      })}
 
       {facets.map((facet) => (
         <FacetBlock
@@ -134,6 +158,7 @@ export function CatalogView({ products }: { products: Product[] }) {
                   update((params) => {
                     facetDefs.forEach((def) => params.delete(def.param));
                     params.delete("price");
+                    rangeFacets.forEach((def) => params.delete(def.param));
                   })
                 }
                 className="text-sm text-accent transition-colors hover:text-accent-hover"
@@ -272,14 +297,14 @@ export function CatalogView({ products }: { products: Product[] }) {
                   key={`${param}-${value}`}
                   type="button"
                   onClick={() =>
-                    param === "price"
-                      ? update((params) => params.delete("price"))
+                    isRange(param)
+                      ? setRange(param, "")
                       : toggleValue(param, value)
                   }
                   className="transition-opacity hover:opacity-80"
                 >
                   <Chip>
-                    {param === "price" ? priceLabel(value) : value}
+                    {isRange(param) ? rangeLabel(param, value) : value}
                     <Close className="size-3.5" />
                   </Chip>
                 </button>
@@ -291,6 +316,7 @@ export function CatalogView({ products }: { products: Product[] }) {
                 update((params) => {
                   facetDefs.forEach((def) => params.delete(def.param));
                   params.delete("price");
+                    rangeFacets.forEach((def) => params.delete(def.param));
                 })
               }
               className="text-sm text-ink-3 transition-colors hover:text-accent"
@@ -313,6 +339,7 @@ export function CatalogView({ products }: { products: Product[] }) {
                   update((params) => {
                     facetDefs.forEach((def) => params.delete(def.param));
                     params.delete("price");
+                    rangeFacets.forEach((def) => params.delete(def.param));
                   })
                 }
               >
@@ -393,6 +420,7 @@ export function CatalogView({ products }: { products: Product[] }) {
                 update((params) => {
                   facetDefs.forEach((def) => params.delete(def.param));
                   params.delete("price");
+                    rangeFacets.forEach((def) => params.delete(def.param));
                 })
               }
             >
@@ -513,59 +541,87 @@ function pageNumbers(current: number, total: number): (number | null)[] {
   return result;
 }
 
-/** «1000-50000» → «от 1 000 ₽ до 50 000 ₽» для чипа над выдачей. */
-function priceLabel(value: string): string {
-  const [min, max] = value.split("-");
+/** Число для подписи: 0,37 — с запятой, 400 — без хвоста. */
+function number(value: number): string {
+  return value.toLocaleString("ru-RU", { maximumFractionDigits: 2 });
+}
+
+/** Диапазонные параметры: цена и номиналы. */
+function isRange(param: string): boolean {
+  return param === "price" || rangeFacets.some((def) => def.param === param);
+}
+
+/** «16-100» → «Ток, А: от 16 до 100» для чипа над выдачей. */
+function rangeLabel(param: string, value: string): string {
+  const [min, max] = value.split("-").map(Number);
+  const money_ = param === "price";
+  const name = money_
+    ? "Цена"
+    : (rangeFacets.find((def) => def.param === param)?.label ?? param);
+
   const parts = [];
-  if (Number(min) > 0) parts.push(`от ${money(Number(min))}`);
-  if (Number(max) > 0) parts.push(`до ${money(Number(max))}`);
-  return parts.join(" ") || "Цена";
+  if (min > 0) parts.push(`от ${money_ ? money(min) : number(min)}`);
+  if (max > 0) parts.push(`до ${money_ ? money(max) : number(max)}`);
+  return parts.length ? `${name}: ${parts.join(" ")}` : name;
 }
 
 /**
- * Диапазон цены. Границы уезжают в адрес одним параметром «мин-макс»,
+ * Диапазон «от–до». Границы уезжают в адрес одним параметром «мин-макс»,
  * поэтому ссылку на подборку можно отправить коллеге целиком.
  */
-function PriceRange({
+function RangeField({
+  label,
+  hint,
   value,
+  decimals = false,
   onChange,
 }: {
+  label: string;
+  hint?: string;
   value: string;
+  decimals?: boolean;
   onChange: (next: string) => void;
 }) {
   const [min = "", max = ""] = value.split("-");
   const set = (nextMin: string, nextMax: string) => {
-    const clean = (raw: string) => raw.replace(/\D/g, "");
+    // У мощности бывают дробные номиналы (0,37 кВт), поэтому запятую
+    // принимаем и приводим к точке — в адресе она читается однозначно.
+    const clean = (raw: string) =>
+      decimals ? raw.replace(",", ".").replace(/[^\d.]/g, "") : raw.replace(/\D/g, "");
     const result = `${clean(nextMin)}-${clean(nextMax)}`;
     onChange(result === "-" ? "" : result);
   };
 
+  const field =
+    "h-11 w-full min-w-0 rounded-md border border-line bg-page px-3 text-base tabular outline-none transition-colors duration-150 focus:border-accent";
+
   return (
     <fieldset>
       <legend className="mb-2 text-xs font-medium uppercase tracking-[0.04em] text-ink-3">
-        Цена, ₽
+        {label}
       </legend>
       <div className="flex items-center gap-2">
         <input
-          inputMode="numeric"
+          inputMode="decimal"
           value={min === "0" ? "" : min}
           onChange={(event) => set(event.target.value, max)}
           placeholder="от"
-          aria-label="Цена от"
-          className="h-11 w-full min-w-0 rounded-md border border-line bg-page px-3 text-base tabular outline-none transition-colors duration-150 focus:border-accent"
+          aria-label={`${label}: от`}
+          className={field}
         />
         <span aria-hidden className="text-ink-3">
           —
         </span>
         <input
-          inputMode="numeric"
+          inputMode="decimal"
           value={max === "0" ? "" : max}
           onChange={(event) => set(min, event.target.value)}
           placeholder="до"
-          aria-label="Цена до"
-          className="h-11 w-full min-w-0 rounded-md border border-line bg-page px-3 text-base tabular outline-none transition-colors duration-150 focus:border-accent"
+          aria-label={`${label}: до`}
+          className={field}
         />
       </div>
+      {hint && <p className="mt-1.5 text-sm text-ink-3">В наличии: {hint}</p>}
     </fieldset>
   );
 }
