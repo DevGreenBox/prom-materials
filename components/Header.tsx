@@ -76,10 +76,10 @@ export function Header() {
       )}
 
       <header className="no-print sticky top-0 z-50 border-b border-line bg-page/95 backdrop-blur">
-        <Container className="flex h-16 items-center gap-3 lg:gap-5">
+        <Container className="flex h-16 items-center gap-2 min-[360px]:gap-3 lg:gap-5">
           <Link
             href="/"
-            className="shrink-0 text-xl font-semibold leading-tight tracking-tight"
+            className="shrink-0 text-lg font-semibold leading-tight tracking-tight min-[360px]:text-xl"
           >
             Пром<span className="text-accent">-</span>Материалы
           </Link>

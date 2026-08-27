@@ -106,7 +106,7 @@ export default function ComparePage() {
                     >
                       {product.name}
                     </Link>
-                    <div className="mt-2 flex h-6 items-center gap-3 overflow-hidden">
+                    <div className="mt-2 flex h-7 items-center gap-3 overflow-hidden">
                       <Price value={product.price} />
                       <Stock inStock={product.inStock} />
                     </div>

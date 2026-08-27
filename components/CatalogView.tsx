@@ -362,6 +362,14 @@ export function CatalogView({ products }: { products: Product[] }) {
             >
               Назад
             </Button>
+            {/* На телефоне вместо номеров — счётчик: «Назад», семь номеров
+                и «Вперёд» в строку шириной в экран не помещаются, а листают
+                там всё равно кнопками. */}
+            <span className="flex min-h-11 items-center px-2 font-mono text-base text-ink-2 sm:hidden">
+              {page} / {pages}
+            </span>
+
+            <span className="hidden items-center gap-1 sm:flex sm:gap-2">
             {pageNumbers(page, pages).map((item, index) =>
               item === null ? (
                 <span
@@ -387,6 +395,8 @@ export function CatalogView({ products }: { products: Product[] }) {
                 </button>
               ),
             )}
+            </span>
+
             <Button
               variant="secondary"
               disabled={page === pages}

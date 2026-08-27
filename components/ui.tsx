@@ -191,7 +191,9 @@ export function Nameplate({
       className={`flex flex-col items-center justify-center gap-1 overflow-hidden rounded-md bg-surface px-2 text-center ${className}`}
     >
       <span
-        className={`font-mono leading-tight text-ink ${compact ? "text-sm" : "text-xl"}`}
+        className={`max-w-full hyphens-auto font-mono leading-tight text-ink ${
+          compact ? "text-sm" : "text-sm min-[360px]:text-base sm:text-xl"
+        }`}
       >
         {primary}
       </span>

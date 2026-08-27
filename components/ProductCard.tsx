@@ -61,9 +61,12 @@ export function ProductCard({
       </div>
 
       <div className="flex min-w-0 flex-1 flex-col">
-        <p className="mb-1 flex items-baseline gap-2 truncate text-xs text-ink-3">
-          <span className="font-medium text-ink-2">{product.brand}</span>
-          <span className="font-mono">{product.article}</span>
+        {/* Код позиции не сжимаем — он и есть адрес товара; сжимается
+            название производителя. `truncate` на самой строке ничего
+            не давал: обрезать надо элемент, а не флекс-контейнер. */}
+        <p className="mb-1 flex min-w-0 items-baseline gap-2 text-xs text-ink-3">
+          <span className="truncate font-medium text-ink-2">{product.brand}</span>
+          <span className="shrink-0 font-mono">{product.article}</span>
         </p>
 
         {/* Названия объявлений длинные и разной длины: без ограничения

@@ -56,7 +56,7 @@ export function SectionTiles({ tiles }: { tiles: SectionTile[] }) {
             href={`/catalog/${section.slug}`}
             className="absolute inset-x-4 top-4 z-30 block"
           >
-            <span className="block text-xl font-semibold leading-7 transition-colors group-hover:text-accent">
+            <span className="block hyphens-auto text-lg font-semibold leading-6 transition-colors group-hover:text-accent sm:text-xl sm:leading-7">
               {section.name}
             </span>
             <span className="mt-1 block font-mono text-sm text-ink-3">
