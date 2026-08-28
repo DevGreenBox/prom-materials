@@ -29,6 +29,7 @@ import {
 } from "@/lib/catalog";
 import { money } from "@/lib/format";
 import { site } from "@/lib/site";
+import { typo } from "@/lib/typo";
 
 export function generateStaticParams() {
   return products.map((product) => ({ slug: product.slug }));
@@ -129,7 +130,7 @@ export default async function ProductPage(props: PageProps<"/product/[slug]">) {
             )}
             <CopyArticle article={product.article} />
           </p>
-          <h1 className="h1">{product.name}</h1>
+          <h1 className="h1">{typo(product.name)}</h1>
 
           <ParamLine params={product.params} className="mt-4 text-base" />
 

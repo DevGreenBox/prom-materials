@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import type { Section } from "@/lib/catalog";
+import { typo } from "@/lib/typo";
 
 export type SectionTile = {
   section: Section;
@@ -56,8 +57,8 @@ export function SectionTiles({ tiles }: { tiles: SectionTile[] }) {
             href={`/catalog/${section.slug}`}
             className="absolute inset-x-4 top-4 z-30 block"
           >
-            <span className="block hyphens-auto text-lg font-semibold leading-6 transition-colors group-hover:text-accent sm:text-xl sm:leading-7">
-              {section.name}
+            <span className="block text-lg font-semibold leading-6 transition-colors group-hover:text-accent sm:text-xl sm:leading-7">
+              {typo(section.name)}
             </span>
             <span className="mt-1 block font-mono text-sm text-ink-3">
               {count} позиций

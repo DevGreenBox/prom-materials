@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "check": "node scripts/check-content.mjs",
+    "check": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/check-content.mjs",
     "reviews": "node scripts/fetch-avito-reviews.mjs",
     "items": "node scripts/fetch-avito-items.mjs",
     "catalog": "node scripts/build-catalog.mjs",

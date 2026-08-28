@@ -10,6 +10,7 @@ import { QuickView } from "@/components/QuickView";
 import { CardPhotos } from "@/components/Photos";
 import { ParamLine, Price } from "@/components/ui";
 import { groupOf, type Product } from "@/lib/catalog";
+import { typo } from "@/lib/typo";
 
 /**
  * Позиция в выдаче. Карточка обведена: на выдаче из двух десятков позиций
@@ -76,7 +77,7 @@ export function ProductCard({
             href={`/product/${product.slug}`}
             className="transition-colors hover:text-accent"
           >
-            {product.name}
+            {typo(product.name)}
           </Link>
         </h3>
 

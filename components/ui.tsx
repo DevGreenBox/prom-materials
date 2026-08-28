@@ -4,6 +4,7 @@ import Link from "next/link";
 import { ArrowRight, ChevronDown } from "@/components/icons";
 import type { Product } from "@/lib/catalog";
 import { money } from "@/lib/format";
+import { typo } from "@/lib/typo";
 
 /**
  * Единственный контейнер сайта. Модуль макета: 1440 — поля 100 — контент 1240,
@@ -191,15 +192,15 @@ export function Nameplate({
       className={`flex flex-col items-center justify-center gap-1 overflow-hidden rounded-md bg-surface px-2 text-center ${className}`}
     >
       <span
-        className={`max-w-full hyphens-auto font-mono leading-tight text-ink ${
+        className={`max-w-full font-mono leading-tight text-ink ${
           compact ? "text-sm" : "text-sm min-[360px]:text-base sm:text-xl"
         }`}
       >
-        {primary}
+        {typo(primary)}
       </span>
       {!compact && rest.length > 0 && (
-        <span className="font-mono text-xs leading-tight text-ink-3">
-          {rest.slice(0, 2).join(" · ")}
+        <span className="max-w-full font-mono text-xs leading-tight text-ink-3">
+          {typo(rest.slice(0, 2).join(" · "))}
         </span>
       )}
     </div>
@@ -270,12 +271,10 @@ export function Breadcrumbs({
     <nav aria-label="Хлебные крошки" className="mb-5 text-base text-ink-3 sm:text-sm">
       <ol className="flex flex-wrap items-center gap-x-2 gap-y-1">
         {items.map((item, index) => (
+          // Разделитель стоит после своей крошки, а не перед следующей:
+          // при переносе строки он остаётся в конце верхней строки,
+          // а не открывает нижнюю.
           <li key={item.name} className="flex items-center gap-2">
-            {index > 0 && (
-              <span aria-hidden className="font-mono text-xs text-ink-3">
-                /
-              </span>
-            )}
             {item.href ? (
               <Link
                 href={item.href}
@@ -285,6 +284,11 @@ export function Breadcrumbs({
               </Link>
             ) : (
               <span className="text-ink-2">{item.name}</span>
+            )}
+            {index < items.length - 1 && (
+              <span aria-hidden className="font-mono text-xs text-ink-3">
+                /
+              </span>
             )}
           </li>
         ))}

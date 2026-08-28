@@ -10,6 +10,8 @@ import { readdirSync, readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
 
+import { typo } from "../lib/typo.ts";
+
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const read = (file) => JSON.parse(readFileSync(path.join(root, file), "utf8"));
 
@@ -103,6 +105,34 @@ for (const file of files) {
     assert.ok(!source.includes(word), `${file}: рекламное слово «${word}» в тексте`);
   }
 }
+
+// Переносы: расставляет их наш собственный алгоритм, а не браузер,
+// поэтому правила проверяем здесь. Односложный отрыв и перенос перед
+// Ь, Ъ, Й — самые частые ошибки такого кода.
+const SHY = "\u00AD";
+for (const name of [
+  ...sections.map((section) => section.name),
+  ...sections.flatMap((section) => section.groups.map((group) => group.name)),
+  ...products.slice(0, 300).map((product) => product.name),
+]) {
+  for (const word of typo(name).split(/[\s\u00A0]+/)) {
+    if (!word.includes(SHY)) continue;
+    const parts = word.split(SHY);
+    assert.ok(parts[0].length >= 2, `перенос после одной буквы: ${word}`);
+    assert.ok(parts.at(-1).length >= 3, `перенос двух букв: ${word}`);
+    for (const part of parts.slice(1)) {
+      assert.ok(!"ьъй".includes(part[0].toLowerCase()), `строка начинается с «${part[0]}»: ${word}`);
+    }
+    assert.strictEqual(parts.join(""), word.replaceAll(SHY, ""), "перенос потерял буквы");
+  }
+}
+
+assert.ok(typo("Электрооборудование").includes(SHY), "длинное слово осталось без переносов");
+assert.ok(
+  typo("Управление и визуализация").includes("и\u00A0"),
+  "однобуквенный союз остался в конце строки",
+);
+assert.ok(!typo("майка").includes(SHY), "короткое слово переносить незачем");
 
 console.log(
   `Проверено: ${products.length} позиций, ${groupSlugs.size} подгрупп, ${popularQueries.length} запросов, ${files.length} файлов разметки. Ошибок нет.`,

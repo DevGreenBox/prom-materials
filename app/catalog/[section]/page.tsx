@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import { Catalog } from "@/components/Catalog";
 import { Breadcrumbs, Container } from "@/components/ui";
 import { countIn, getSection, productsOf, sections } from "@/lib/catalog";
+import { typo } from "@/lib/typo";
 
 export function generateStaticParams() {
   return sections.map((section) => ({ section: section.slug }));
@@ -42,7 +43,7 @@ export default async function SectionPage(
         ]}
       />
 
-      <h1 className="h1">{section.name}</h1>
+      <h1 className="h1">{typo(section.name)}</h1>
       <p className="mt-3 max-w-[68ch] text-ink-2">{section.summary}</p>
 
       <ul className="my-6 flex flex-wrap gap-2">

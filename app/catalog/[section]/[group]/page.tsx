@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { Catalog } from "@/components/Catalog";
 import { Breadcrumbs, Container } from "@/components/ui";
 import { getGroup, getSection, productsOf, sections } from "@/lib/catalog";
+import { typo } from "@/lib/typo";
 
 export function generateStaticParams() {
   return sections.flatMap((section) =>
@@ -52,7 +53,7 @@ export default async function GroupPage(
       />
 
       <div className="mb-6 flex flex-wrap items-baseline gap-3">
-        <h1 className="h1">{group.name}</h1>
+        <h1 className="h1">{typo(group.name)}</h1>
         <span className="font-mono text-sm text-ink-3">
           {list.length} позиций
         </span>
